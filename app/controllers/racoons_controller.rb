@@ -1,0 +1,2 @@
+class RacoonsController < ApplicationController
+end

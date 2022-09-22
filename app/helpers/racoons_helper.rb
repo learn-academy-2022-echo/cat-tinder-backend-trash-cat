@@ -1,0 +1,2 @@
+module RacoonsHelper
+end
