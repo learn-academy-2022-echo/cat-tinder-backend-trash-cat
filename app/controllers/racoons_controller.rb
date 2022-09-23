@@ -6,7 +6,11 @@ class RacoonsController < ApplicationController
 
     def create
         racoon = Racoon.create(racoon_params)
-        render json: racoon
+        if racoon.valid?
+            render json: racoon
+        else
+            render json: racoon.errors, status: 422
+        end
     end
 
     private

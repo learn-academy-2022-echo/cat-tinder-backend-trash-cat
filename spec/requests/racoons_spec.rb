@@ -40,4 +40,79 @@ RSpec.describe "Racoons", type: :request do
       expect(racoon.name). to eq('Julius')
     end
   end
+  it 'cannot be created without a name' do
+    racoon_params = {
+      racoon: {
+        age: 1,
+        hobbies: 'Likes long walks on the curb',
+        dislikes: 'Dislikes Sinning, Rock Music, and Halloween',
+        img:'https://i.pinimg.com/564x/4c/19/ee/4c19ee1534048a8776b7b7121eec09dc.jpg'
+      }
+    }
+
+    post '/racoons', params: racoon_params
+    expect(response).to have_http_status(422)
+    json = JSON.parse(response.body)
+    expect(json['name']).to include "can't be blank"
+  end
+  it 'cannot be created without an age' do
+    racoon_params = {
+      racoon: {
+        name: 'Boba',
+        hobbies: 'Likes long walks on the curb',
+        dislikes: 'Dislikes Sinning, Rock Music, and Halloween',
+        img:'https://i.pinimg.com/564x/4c/19/ee/4c19ee1534048a8776b7b7121eec09dc.jpg'
+      }
+    }
+
+    post '/racoons', params: racoon_params
+    expect(response).to have_http_status(422)
+    json = JSON.parse(response.body)
+    expect(json['age']).to include "can't be blank"
+  end
+  it 'cannot be created without hobbies' do
+    racoon_params = {
+      racoon: {
+        name: 'Boba',
+        age: 1,
+        dislikes: 'Dislikes Sinning, Rock Music, and Halloween',
+        img:'https://i.pinimg.com/564x/4c/19/ee/4c19ee1534048a8776b7b7121eec09dc.jpg'
+      }
+    }
+
+    post '/racoons', params: racoon_params
+    expect(response).to have_http_status(422)
+    json = JSON.parse(response.body)
+    expect(json['hobbies']).to include "can't be blank"
+  end
+  it 'cannot be created without dislikes' do
+    racoon_params = {
+      racoon: {
+        name: 'Boba',
+        age: 1,
+        hobbies: 'Likes long walks on the curb',
+        img:'https://i.pinimg.com/564x/4c/19/ee/4c19ee1534048a8776b7b7121eec09dc.jpg'
+      }
+    }
+
+    post '/racoons', params: racoon_params
+    expect(response).to have_http_status(422)
+    json = JSON.parse(response.body)
+    expect(json['dislikes']).to include "can't be blank"
+  end
+  it 'cannot be created without img' do
+    racoon_params = {
+      racoon: {
+        name: 'Boba',
+        age: 1,
+        hobbies: 'Likes long walks on the curb',
+        dislikes: 'Dislikes Sinning, Rock Music, and Halloween'
+      }
+    }
+
+    post '/racoons', params: racoon_params
+    expect(response).to have_http_status(422)
+    json = JSON.parse(response.body)
+    expect(json['img']).to include "can't be blank"
+  end
 end
