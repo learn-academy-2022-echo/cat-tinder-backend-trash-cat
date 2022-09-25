@@ -13,6 +13,16 @@ class RacoonsController < ApplicationController
         end
     end
 
+    def update
+        racoon = Racoon.find(params[:id])
+        racoon.update(racoon_params)
+        if racoon.valid?
+            render json: racoon
+        else
+            render json: racoon.errors
+        end
+    end
+    
     private
     def racoon_params
         params.require(:racoon).permit(:name, :age, :hobbies, :dislikes, :img)
